@@ -1,0 +1,65 @@
+{
+  "name": "cards",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^4.9.14",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "formik": "^2.1.4",
+    "jquery-ui-bundle": "^1.12.1-migrate",
+    "lodash.debounce": "^4.0.8",
+    "moment": "^2.25.3",
+    "moment-timezone": "^0.5.31",
+    "node-sass": "^4.14.1",
+    "react": "^16.13.0",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.0",
+    "react-google-login": "^5.1.20",
+    "react-grid-layout": "^0.17.1",
+    "react-moment": "^0.9.7",
+    "react-onclickoutside": "^6.9.0",
+    "react-player": "^1.15.3",
+    "react-quill": "^1.3.5",
+    "react-redux": "^7.2.0",
+    "react-resize-detector": "^4.2.3",
+    "react-router-dom": "^5.2.0",
+    "react-sanfona": "^1.5.0",
+    "react-scripts": "3.4.0",
+    "react-sortable-dnd-list": "^1.0.1",
+    "react-tiny-link": "^3.4.0",
+    "react-toastify": "^6.0.4",
+    "reactstrap": "^8.4.1",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-react": "^0.88.2",
+    "styled-components": "^5.1.0",
+    "sweetalert2": "^9.10.13",
+    "yup": "^0.28.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

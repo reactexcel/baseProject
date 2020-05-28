@@ -1,0 +1,80 @@
+.Post {
+	padding: 25px;
+	margin-bottom: 1%;
+	min-width: 320px !important;
+	background-color: white;
+	border: 1px solid #d9d9d9;
+	border-radius: 5px;
+	position: relative;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+
+	.Header {
+		height: 120px;
+		// background-color: #e2f8ff;
+		// background-color: #cacecf;
+		display: flex;
+		padding: 0px 50px 0px 0px;
+		align-items: center;
+		justify-content: flex-start;
+		border-radius: 5px !important;
+		border: 1px solid #d9d9d9;
+		-webkit-border-radius: 5px;
+		-moz-border-radius: 5px;
+		-ms-border-radius: 5px;
+		-o-border-radius: 5px;
+
+		img {
+			height: 100%;
+			margin-right: 25px;
+		}
+
+		.Text {
+			height: fit-content;
+			color: #555a5f;
+
+			h2,
+			h4 {
+				margin: 5px 0px;
+			}
+
+			.tags {
+				margin-top: 3px;
+
+				span {
+					border-radius: 5px;
+					-webkit-border-radius: 5px;
+					-moz-border-radius: 5px;
+					-ms-border-radius: 5px;
+					-o-border-radius: 5px;
+					// background-color: #fdf4fd;
+					// background-color: #ccefd0;
+					background-color: white;
+
+					color: #7f7f7f;
+					font-size: 10px;
+					padding: 10px;
+					// padding-bottom: 5px !important;
+					margin: 6px 6px 6px 0px;
+				}
+			}
+		}
+
+		.postMenu {
+			position: absolute;
+			right: 0px !important;
+			display: flex;
+			flex-direction: column;
+			button {
+				margin: 2px;
+			}
+		}
+	}
+
+	.Content {
+		width: 100%;
+		height: 100%;
+	}
+}
