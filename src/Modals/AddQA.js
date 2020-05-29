@@ -2,56 +2,68 @@ import React, { useState, useContext, useRef, useEffect } from "react";
 import ReactQuill from "react-quill";
 import { Modal } from "react-bootstrap";
 import styled from "styled-components";
+import { Editor, EditorState, RichUtils } from "draft-js";
+import RichEditor from "../components/editor";
+import "draft-js/dist/Draft.css";
 
-const AddQA = props => {
+const AddQA = (props) => {
   const [question, setQueastion] = useState("");
-  const [answers, seyAnswers] = useState([{ type: "answer", value: "" }]);
-  const questionHandler = e => {
+  const [answers, setAnswers] = useState([{ type: "answer", value: "" }]);
+  const questionHandler = (e) => {
     setQueastion(e.target.value);
   };
 
   const editCurrentQAItem = (value, i) => {
     const copy = answers.slice();
     copy[i] = { type: "answer", value };
-    seyAnswers(copy);
+    setAnswers(copy);
   };
 
-  const addCurrentQAItem = e => {
+  const addCurrentQAItem = (e) => {
     e.preventDefault();
     let answersArray = [...answers, { type: "answer", value: "" }];
-    seyAnswers(answersArray);
+    setAnswers(answersArray);
   };
 
   const saveQA = (e) => {
     e.preventDefault();
     const data = {
       question,
-      answers
-    }
+      answers,
+    };
     props.saveQA(e, data);
-  }
+  };
 
-  const {data} = props;
-  useEffect(()=>{    
-    if(data){
-      setQueastion(data.question)
-    }else{
-      setQueastion('')
+  const { data } = props;
+  useEffect(() => {
+    if (data) {
+      setQueastion(data.question);
+    } else {
+      setQueastion("");
     }
-  },[data])
-  
+  }, [data]);
 
   return (
-    <Modal show={props.show} onHide={() => props.onHide("qa")} dialogClassName="modalForm">
-      <Modal.Header closeButton>{data ? 'Add Answer To The Question' : "Add question"}</Modal.Header>
+    <Modal
+      show={props.show}
+      onHide={() => {
+        props.onHide("qa");
+      }}
+      dialogClassName="modalForm"
+    >
+      <Modal.Header closeButton>
+        {data ? "Add Answer To The Question" : "Add question"}
+      </Modal.Header>
       <div className="QAForm">
-        <form onSubmit={e => {
-            if(data){
-              props.handleSaveAnswerTdQues(e, answers, data.id)
-            }else{
-              saveQA(e)
+        <form
+          onSubmit={(e) => {
+            if (data) {
+              props.handleSaveAnswerTdQues(e, answers, data.id);
+            } else {
+              saveQA(e);
             }
-          }}>
+          }}
+        >
           <label>Question</label>
           <input
             type="text"
@@ -69,10 +81,17 @@ const AddQA = props => {
                 className="react-q-wrapper"
                 style={{ marginBottom: "50px" }}
               >
-                <ReactQuill
-                  value={item.value}
-                  onChange={value => editCurrentQAItem(value, index)}
-                />
+                {data ? (
+                  <RichEditor 
+                    onChange = {editCurrentQAItem}
+                    index = {index}
+                  />
+                ) : (
+                  <ReactQuill
+                    value={item.value}
+                    onChange={(value) => editCurrentQAItem(value, index)}
+                  />
+                )}
               </div>
             );
           })}

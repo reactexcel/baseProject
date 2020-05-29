@@ -342,7 +342,9 @@ const SectionDetails = props => {
   
   return (
     <React.Fragment>
-      <AddQA show={qaFormVGisible} data={qOfA} handleSaveAnswerTdQues={handleSaveAnswerTdQues} onHide={hideModalHandler} saveQA={saveQA} />
+      {qaFormVGisible && 
+        <AddQA show={qaFormVGisible} data={qOfA} handleSaveAnswerTdQues={handleSaveAnswerTdQues} onHide={hideModalHandler} saveQA={saveQA} />
+      }
 
       <CreateListModal
         show={listFormVisible}
