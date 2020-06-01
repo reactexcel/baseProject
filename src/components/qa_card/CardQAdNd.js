@@ -4,57 +4,66 @@ import icon_qa from "../../img/icon-qa.svg";
 import pencil from "../../img/pencil.svg";
 import share from "../../img/share.svg";
 import Actions from "../../buttons/Actions/Actions";
+import {ReactHeight} from 'react-height';
 
 const CardQA = props => {
-  console.log("props.item.question sdsdsdsd", props.item);
+  const {veiwAll} = props
+  //do the logic as per viewall 
 
+  // if(veiwAll){
+  //   console.log(veiwAll,'veiwAllveiwAll');
+  // }
+  
   return (
-    <DIV className="cardData">
-      <div className="cardHeader">
-        <div className="note-data">
-          <img className="note" src={icon_qa} alt="note" />
-          Q&A
+    <DIV className={`cardData`} id={`${props.className }`} >
+      <div className='helper-class'>
+        <div className="cardHeader">
+          <div className="note-data">
+            <img className="note" src={icon_qa} alt="note" />
+            Q&A
+          </div>
+          {props.actions && <img className="pencil" src={pencil} alt="pencil" />}
         </div>
-        {props.actions && <img className="pencil" src={pencil} alt="pencil" />}
-      </div>
-      <div className="topic-data-header">{props.item.question}</div>
-      <div className="topic-data-text">
-        {props.item && props.item.answers
-          ? props.item.answers.map(item => {
-              return (
-                <div
-                  className="li"
-                  key={item.answer}
-                  style={{ overflowWrap: "break-word" }}
-                  dangerouslySetInnerHTML={{
-                    __html: item.answer ? item.answer : ""
-                  }}
-                />
-              );
-            })
-          : null}
-      </div>
+        <div className="topic-data-header">{props.item.question}</div>
+        <div className="topic-data-text">
+          {props.item && props.item.answers
+            ? props.item.answers.map(item => {
+                return (
+                  <div
+                    className="li"
+                    key={item.answer}
+                    style={{ overflowWrap: "break-word" }}
+                    dangerouslySetInnerHTML={{
+                      __html: item.answer ? item.answer : ""
+                    }}
+                  />
+                );
+              })
+            : null}
+        </div>
+        <div></div>
 
-      {props.actions ? (
-        <div className="buttons-wrapper">
-          <button className="button-share">
-            <img src={share} alt="share" /> Share
-          </button>
-        </div>
-      ) : null}
+        {props.actions ? (
+          <div className="buttons-wrapper">
+            <button className="button-share">
+              <img src={share} alt="share" /> Share
+            </button>
+          </div>
+        ) : null}
 
-      {props.action ? (
-        <div className="buttons-wrapper">
-          <Actions
-            saveHandler={props.saveHandler}
-            item={props.item}
-            type={props.type}
-            shareHandler={props.shareHandler}
-            editHandler={props.openEditListHandler}
-            createQA={props.createQA}
-          />
+        {props.action ? (
+          <div className="buttons-wrapper">
+            <Actions
+              saveHandler={props.saveHandler}
+              item={props.item}
+              type={props.type}
+              shareHandler={props.shareHandler}
+              editHandler={props.openEditListHandler}
+              createQA={props.createQA}
+            />
+          </div>
+        ) : null}
         </div>
-      ) : null}
     </DIV>
   );
 };
@@ -129,9 +138,9 @@ const DIV = styled.div`
   }
 
   .buttons-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 
     .button-share {
       padding: 2px 12px;

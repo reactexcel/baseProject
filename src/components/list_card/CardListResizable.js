@@ -167,9 +167,9 @@ const DIV = styled.div`
   }
 
   .buttons-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+     position: absolute;
+     bottom: 1rem;
+     right: 1rem;
 
     .button-share {
       padding: 2px 12px;

@@ -217,9 +217,9 @@ const DIV = styled.div`
   }
 
   .buttons-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 
     .butoon {
       padding: 2px 12px;

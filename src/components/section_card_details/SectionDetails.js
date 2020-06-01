@@ -22,11 +22,16 @@ import { toast } from "react-toastify";
 import AddQA from "../../Modals/AddQA";
 import { postQA } from "../../api/Qustions";
 import { postAnswer } from "../../api/Answers";
+import { Responsive as ResponsiveGridLayout } from 'react-grid-layout';
+import ReactGridWrapper from "../list_card/ReactGridWrapper";
+import {ReactHeight} from 'react-height';
+
 
 const ReactGridLayout = WidthProvider(GridLayout);
 
 const SectionDetails = props => {
   const [layout, changeLayout] = useState([]);
+  const [layoutCopy, setLayoutCopy] = useState([])
   const [richText, setRichText] = useState("");
   const [notesFormVisible, setNotesFormVisible] = useState(false);
   const [sectionId, setSectionId] = useState(null);
@@ -35,12 +40,15 @@ const SectionDetails = props => {
   const [qaFormVGisible, setQaFormVisible] = useState(false);
   const [activeElem, setActiveElem] = useState(null);
   const [qOfA, setQofA] = useState(null)
+
   useEffect(() => {
     changeLayout(generateLayout());
+    setLayoutCopy(generateLayout())
   }, [props.item.lists, props.item.notes]);
 
   useEffect(() => {
     changeLayout(generateLayout());
+    setLayoutCopy(generateLayout())
   }, []);
 
   // DND handlers
@@ -53,7 +61,8 @@ const SectionDetails = props => {
           x: +item.x || 0,
           y: +item.y || 0,
           w: +item.w ? Math.ceil(item.w) : 7,
-          h: +item.h ? item.h : 2
+          h: +item.h ? item.h : 2,
+          veiwAll:false
         })
       );
     }
@@ -64,19 +73,21 @@ const SectionDetails = props => {
           x: +item.x || 0,
           y: +item.y || 0,
           w: +item.w ? item.w : 7,
-          h: +item.h ? item.h : 1
+          h: +item.h ? item.h : 1,
+          veiwAll:false
         })
       );
     }
 
-    if (props.item.questions.length > 0) {
+    if (props.item.questions.length > 0) {      
       props.item.questions.map((item, i) =>
         layoutTemp.push({
           i: `questions-${item.id}-${i}`,
           x: item.x || 0,
           y: item.y || 0,
           w: item.w ? item.w : 7,
-          h: +item.h ? item.h : 2
+          h: +item.h ? item.h : 2,
+          veiwAll:false
         })
       );
     }
@@ -84,16 +95,18 @@ const SectionDetails = props => {
     return layoutTemp;
   };
 
-  const changeSizeApi = debounce(layout => {
+  const changeSizeApi = debounce(layout => {    
     let type = layout.i.split("-")[0];
     let id = layout.i.split("-")[1];
     let index = layout.i.split("-")[2];
     const filteredNote = props.item.notes.filter(item => +item.id === +id)[0];
     const filteredList = props.item.lists.filter(item => +item.id === +id)[0];
     const filteredQa = props.item.questions.filter(item => +item.id === +id)[0];
+    const getCurrentHeight = document.getElementById(layout.i).clientHeight
+    const scrollHeight = document.getElementById(layout.i).scrollHeight
 
     if (type === "lists") {
-      const listData = {
+      let listData = {
         section_id: filteredList.section_id,
         title: filteredList.title,
         index: +filteredList,
@@ -103,11 +116,16 @@ const SectionDetails = props => {
         h: layout.h,
         w: layout.w
       };
-      putList(filteredList.id, listData);
+      if(scrollHeight > getCurrentHeight){
+        handleHightChecker(putList, listData, filteredList.id, layout.i )
+      }else{
+        listData.veiwAll = false
+        putList(filteredList.id, listData);
+      }
     }
 
     if (type === "notes") {
-      const noteData = {
+      let noteData = {
         section_id: filteredNote.section_id,
         title: filteredNote.title,
         description: filteredNote.description,
@@ -119,11 +137,16 @@ const SectionDetails = props => {
         w: layout.w,
         index: +filteredNote.index
       };
-      putNotes(filteredNote.id, noteData);
+      if(scrollHeight > getCurrentHeight){
+        handleHightChecker(putNotes, noteData, filteredNote.id, layout.i )
+      }else{
+      noteData.veiwAll = false;
+        putNotes(filteredNote.id, noteData);
+      }
     }
 
     if (type === "questions") {
-      const qaData = {
+      let qaData = {
         section_id: filteredQa.section_id,
         title: filteredQa.title,
         index: +filteredQa.index,
@@ -133,9 +156,31 @@ const SectionDetails = props => {
         h: layout.h,
         w: layout.w
       };
-      putQA(filteredQa.id, qaData);
+     
+      if(scrollHeight > getCurrentHeight){
+        handleHightChecker(putQA, qaData, filteredQa.id, layout.i )
+      }else{
+        qaData.veiwAll = false;
+        putQA(filteredQa.id, qaData);
+      }
     }
   }, 250);
+
+  function handleHightChecker (apiFunction, data, id, layoutId ){
+    let newLayout = []
+    layoutCopy.forEach(item => {
+      let element = item
+      if(layoutId === item.i){
+        element.veiwAll = true
+        newLayout.push(element)
+      }else{
+        newLayout.push(element)
+      }
+    });        
+    changeLayout(newLayout)
+    data.veiwAll = true;
+    apiFunction(id, data);
+  }
 
   const getIndex = index => {};
 
@@ -339,7 +384,16 @@ const SectionDetails = props => {
   const cardListener = elem => {
     setActiveElem(elem);
   };
-  
+
+  function getViewAllStatus (data, index){
+  let item =  layout.filter((item)=> item.i == `questions-${data.id}-${index}`)
+    if(item.veiwAll){
+      return true
+    }else{
+      return false
+    }
+  }
+
   return (
     <React.Fragment>
       {qaFormVGisible && 
@@ -406,6 +460,7 @@ const SectionDetails = props => {
           props.item.lists ? (
             <ReactGridLayout
               layout={layout}
+              // onResizeStop={(data)=>changeLayout(data)}
               onResize={(layout, old, newItem) => {
                 changeSizeApi(newItem);
               }}
@@ -413,7 +468,7 @@ const SectionDetails = props => {
                 onDragHandler(layout);
               }}
             >
-              {props.item.notes.map((item, index) => {
+              {props.item.notes.map((item, index) => {                
                 return (
                   <div
                     className={`card-wrapper ${
@@ -425,6 +480,7 @@ const SectionDetails = props => {
                     onClick={() => cardListener(`note-card-${index}`)}
                   >
                     <CardNote
+                      veiwAll = {getViewAllStatus(item, index)}
                       index={index}
                       item={item}
                       action={props.action}
@@ -449,6 +505,7 @@ const SectionDetails = props => {
                     key={`lists-${item.id}-${index}`}
                   >
                     <CardList
+                      veiwAll = {getViewAllStatus(item, index)}
                       technologies={["#Mentality", "#Mentality"]}
                       action={props.action}
                       item={item}
@@ -461,7 +518,7 @@ const SectionDetails = props => {
                   </div>
                 );
               })}
-
+ 
               {props.item.questions.map((item, index) => {
                 return (
                   <div
@@ -473,15 +530,17 @@ const SectionDetails = props => {
                     key={`questions-${item.id}-${index}`}
                     onClick={() => cardListener(`qa-card-${index}`)}
                   >
-                    <CardQA
-                      action={props.action}
-                      item={item}
-                      saveHandler={props.saveHandler}
-                      type="qa"
-                      shareHandler={props.shareHandler}
-                      openEditListHandler={props.openEditListHandler}
-                      createQA={createQA}
-                    />
+                      <CardQA
+                        veiwAll = {getViewAllStatus(item, index)}
+                        action={props.action}
+                        className={`questions-${item.id}-${index}`}
+                        item={item}
+                        saveHandler={props.saveHandler}
+                        type="qa"
+                        shareHandler={props.shareHandler}
+                        openEditListHandler={props.openEditListHandler}
+                        createQA={createQA}
+                      />
                   </div>
                 );
               })}
@@ -559,7 +618,11 @@ const DIV = styled.div`
     line-height: 28px;
     margin-bottom: 24px;
   }
-
+  // .main-data{
+  //   white-space: nowrap;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  // }
   .main-data:first-child {
     margin-right: 27px !important;
   }
