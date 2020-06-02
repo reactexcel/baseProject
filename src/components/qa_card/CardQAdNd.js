@@ -6,22 +6,33 @@ import share from "../../img/share.svg";
 import Actions from "../../buttons/Actions/Actions";
 import ReactPlayer from "react-player";
 import { Link } from "react-router-dom";
+import { ReactHeight } from "react-height";
 
-const CardQA = props => {
-  console.log("props.item.question sdsdsdsd",props.actions, props.action,  props.item);
+const CardQA = (props) => {
+  const { veiwAll } = props;
+  //do the logic as per viewall
+  // if(veiwAll){
+  //   console.log(veiwAll,'veiwAllveiwAll');
+  // }
 
   return (
-    <DIV className="cardData">
-      <div className="cardHeader">
-        <div className="note-data">
-          <img className="note" src={icon_qa} alt="note" />
-          Q&A
+    <DIV className={`cardData`} id={`${props.className}`}>
+      <div className="helper-class">
+        <div className="cardHeader">
+          <div className="note-data">
+            <img className="note" src={icon_qa} alt="note" />
+            Q&A
+          </div>
+          {props.actions && (
+            <img className="pencil" src={pencil} alt="pencil" />
+          )}
         </div>
         {props.actions && <img className="pencil" src={pencil} alt="pencil" />}
       </div>
       {props.item &&
         props.item.url &&
-        (props.item.url.indexOf("youtube.com") >= 0 || props.item.url.indexOf("youtu.be") >= 0) && (
+        (props.item.url.indexOf("youtube.com") >= 0 ||
+          props.item.url.indexOf("youtu.be") >= 0) && (
           <div className="frame">
             <ReactPlayer
               className="preview_video"
@@ -33,23 +44,24 @@ const CardQA = props => {
       <div className="topic-data-header">{props.item.question}</div>
       <div className="topic-data-text">
         {props.item && props.item.answers
-          ? props.item.answers.map(item => {
+          ? props.item.answers.map((item) => {
               return (
                 <div
                   className="li"
                   key={item.answer}
                   style={{ overflowWrap: "break-word" }}
                   dangerouslySetInnerHTML={{
-                    __html: item.answer ? item.answer : ""
+                    __html: item.answer ? item.answer : "",
                   }}
                 />
               );
             })
           : null}
       </div>
+      <div></div>
 
       {props.actions ? (
-        <div className="buttons-wrapper share">
+        <div className="buttons-wrapper">
           <button className="button-share">
             <img src={share} alt="share" /> Share
           </button>
@@ -68,7 +80,7 @@ const CardQA = props => {
           />
         </div>
       ) : null}
-      <Link to={`/card/QA/${props.item.id}`} >View All</Link>
+      <Link to={`/card/QA/${props.item.id}`}>View All</Link>
     </DIV>
   );
 };
@@ -144,9 +156,9 @@ const DIV = styled.div`
   }
 
   .buttons-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
 
     .button-share {
       padding: 2px 12px;
