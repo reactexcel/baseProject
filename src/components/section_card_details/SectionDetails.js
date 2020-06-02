@@ -97,6 +97,8 @@ const SectionDetails = props => {
   };
 
   const changeSizeApi = debounce(layout => {    
+    console.log(layout,'layoutlayoutlayout');
+    
     let type = layout.i.split("-")[0];
     let id = layout.i.split("-")[1];
     let index = layout.i.split("-")[2];
@@ -484,6 +486,7 @@ const SectionDetails = props => {
                     <CardNote
                       veiwAll = {getViewAllStatus(item, index)}
                       index={index}
+                      className={`notes-${item.id}-${index}`}
                       item={item}
                       action={props.action}
                       editHandler={props.editHandler}
@@ -509,6 +512,7 @@ const SectionDetails = props => {
                     <CardList
                       veiwAll = {getViewAllStatus(item, index)}
                       technologies={["#Mentality", "#Mentality"]}
+                      className={`lists-${item.id}-${index}`}
                       action={props.action}
                       item={item}
                       onClick={() => cardListener(`card-list-${index}`)}
