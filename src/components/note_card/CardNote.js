@@ -34,6 +34,7 @@ const CardNote = props => {
   return (
     <DIV
       className="cardData notes react-grid-item"
+      id={`${props.className}`}
       key={`notes-${props.index}`}
       onClick={() => changeSizeApi(props.item.index)}
     >

@@ -18,7 +18,7 @@ const CardList = props => {
 
 
   return (
-    <DIV className="cardData">
+    <DIV className="cardData" id={`${props.className}`}>
       <div className="cardHeader">
         <div className="note-data">
           <img className="note" src={icon_list} alt="note" />
