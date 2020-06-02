@@ -23,7 +23,8 @@ const CardNote = props => {
 
     props.getIndex(data);
   };
-
+  console.log(props.veiwAll);
+  
   if (!props.item) {
     return (
       <DIV className="cardData notes">
@@ -112,7 +113,9 @@ const CardNote = props => {
         handleWidth
         handleHeight
       />
-      <Link to={`/card/note/${props.item.id}`} >View All</Link>
+      {/* {props.veiwAll ? */}
+        <Link to={`/card/note/${props.item.id}`} >View All</Link>
+      {/* : null} */}
     </DIV>
   );
 };
@@ -125,6 +128,7 @@ const DIV = styled.div`
   box-shadow: 4px 4px 0 0 #ffb740;
   width: 316px;
   margin-bottom: 26px;
+  overflow: hidden;
 
   .note-data {
     color: #ffb740;

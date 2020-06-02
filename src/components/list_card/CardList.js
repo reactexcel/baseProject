@@ -108,7 +108,9 @@ const CardList = props => {
         handleWidth
         handleHeight
       />
-      <Link to={`/card/list/${props.item.id}`} >View All</Link>
+      {/* { props.veiwAll ? */}
+        <Link to={`/card/list/${props.item.id}`} >View All</Link>
+      {/* : null } */}
     </DIV>
   );
 };

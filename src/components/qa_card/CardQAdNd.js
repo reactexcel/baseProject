@@ -80,7 +80,9 @@ const CardQA = (props) => {
           />
         </div>
       ) : null}
-      <Link to={`/card/QA/${props.item.id}`}>View All</Link>
+      {/* {veiwAll ? */}
+        <Link to={`/card/QA/${props.item.id}`}>View All</Link>
+      {/* : null} */}
     </DIV>
   );
 };
