@@ -9,6 +9,7 @@ import Internal from "./pages/Internal/Internal";
 import Dapp from "./Dapp";
 import SingUp from "./pages/SignUp/SignUp";
 import Post from "./pages/Post/Post";
+import Card from "./pages/Card/Card";
 
 const App = props => {
   return (
@@ -25,6 +26,11 @@ const App = props => {
             path="/post/:postId"
             name="Sign In"
             render={props => <Post {...props} />}
+          />
+          <Route
+            path="/card/:cardType/:cardId"
+            name="Sign In"
+            render={props => <Card {...props} />}
           />
           <Route
             exact

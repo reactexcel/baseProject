@@ -8,6 +8,7 @@ import "draft-js/dist/Draft.css";
 
 const AddQA = (props) => {
   const [question, setQueastion] = useState("");
+  const [url, setURL] = useState("");
   const [answers, setAnswers] = useState([{ type: "answer", value: "" }]);
   const questionHandler = (e) => {
     setQueastion(e.target.value);
@@ -30,6 +31,7 @@ const AddQA = (props) => {
     const data = {
       question,
       answers,
+      url
     };
     props.saveQA(e, data);
   };
@@ -73,7 +75,13 @@ const AddQA = (props) => {
             // defaultValue={question}
             onChange={questionHandler}
           />
-
+          <label>Url</label>
+          <input
+            name="url"
+            type="text"
+            value={url}
+            onChange={(e)=> setURL(e.target.value)}
+          />
           {answers.map((item, index) => {
             return (
               <div

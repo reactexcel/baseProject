@@ -6,7 +6,9 @@ import share from "../../img/share.svg";
 import download from "../../img/download.svg";
 import Actions from "../../buttons/Actions/Actions";
 import Moment from "react-moment";
+import ReactPlayer from "react-player";
 import ReactResizeDetector from "react-resize-detector";
+import { Link } from "react-router-dom";
 const CardList = props => {
   if (!props.item) {
     return (
@@ -31,6 +33,17 @@ const CardList = props => {
           </div>
         )}
       </div>
+      {props.item &&
+        props.item.url &&
+        (props.item.url.indexOf("youtube.com") >= 0 || props.item.url.indexOf("youtu.be") >= 0) && (
+          <div className="frame">
+            <ReactPlayer
+              className="preview_video"
+              url={props.item.url}
+              playing={false}
+            />
+          </div>
+        )}
       <div className="topic-data-header">{props.item.title}</div>
       <div className="topic-data-text">
         <ul className="ul">
@@ -95,6 +108,7 @@ const CardList = props => {
         handleWidth
         handleHeight
       />
+      <Link to={`/card/list/${props.item.id}`} >View All</Link>
     </DIV>
   );
 };
@@ -107,6 +121,7 @@ const DIV = styled.div`
   box-shadow: 4px 4px 0 0 #61edea;
   width: 316px;
   margin-bottom: 26px;
+  overflow: hidden;
 
   .note-data {
     color: #61edea;
@@ -172,6 +187,9 @@ const DIV = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    right: 20px;
 
     .button-share {
       padding: 2px 12px;
@@ -227,6 +245,10 @@ const DIV = styled.div`
   .technology-wrapper {
     display: flex;
     flex-wrap: wrap;
+  }
+  .preview_video {
+    width: auto !important;
+    height: auto !important;
   }
 `;
 

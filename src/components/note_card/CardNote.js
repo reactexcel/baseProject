@@ -7,6 +7,7 @@ import Actions from "../../buttons/Actions/Actions";
 import ReactPlayer from "react-player";
 import Moment from "react-moment";
 import ReactResizeDetector from "react-resize-detector";
+import { Link } from "react-router-dom";
 
 const CardNote = props => {
   const changeSizeApi = () => {
@@ -110,6 +111,7 @@ const CardNote = props => {
         handleWidth
         handleHeight
       />
+      <Link to={`/card/note/${props.item.id}`} >View All</Link>
     </DIV>
   );
 };

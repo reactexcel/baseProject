@@ -133,9 +133,9 @@ const Header = props => {
   );
 };
 
+// width: 100vw;
 const DIV = styled.div`
   box-shadow: 0px 4px 15px rgba(218, 218, 218, 0.25);
-  width: 100vw;
   height: 80px;
   display: flex;
   align-items: baseline;

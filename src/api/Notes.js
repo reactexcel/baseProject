@@ -8,6 +8,14 @@ export const getNotes = id => {
     .then(res => res.data);
 };
 
+export const getNoteById = id => {
+  return axiosInstance
+    .get(
+      `api//notes/${id}?api_token=${localStorage.getItem("api_token")}`
+    )
+    .then(res => res.data);
+};
+
 export const postNotes = data => {
   return axiosInstance
     .post(`api/notes?api_token=${localStorage.getItem("api_token")}`, data)

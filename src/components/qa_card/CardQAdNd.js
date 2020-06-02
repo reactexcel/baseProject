@@ -4,9 +4,11 @@ import icon_qa from "../../img/icon-qa.svg";
 import pencil from "../../img/pencil.svg";
 import share from "../../img/share.svg";
 import Actions from "../../buttons/Actions/Actions";
+import ReactPlayer from "react-player";
+import { Link } from "react-router-dom";
 
 const CardQA = props => {
-  console.log("props.item.question sdsdsdsd", props.item);
+  console.log("props.item.question sdsdsdsd",props.actions, props.action,  props.item);
 
   return (
     <DIV className="cardData">
@@ -17,6 +19,17 @@ const CardQA = props => {
         </div>
         {props.actions && <img className="pencil" src={pencil} alt="pencil" />}
       </div>
+      {props.item &&
+        props.item.url &&
+        (props.item.url.indexOf("youtube.com") >= 0 || props.item.url.indexOf("youtu.be") >= 0) && (
+          <div className="frame">
+            <ReactPlayer
+              className="preview_video"
+              url={props.item.url}
+              playing={false}
+            />
+          </div>
+        )}
       <div className="topic-data-header">{props.item.question}</div>
       <div className="topic-data-text">
         {props.item && props.item.answers
@@ -36,7 +49,7 @@ const CardQA = props => {
       </div>
 
       {props.actions ? (
-        <div className="buttons-wrapper">
+        <div className="buttons-wrapper share">
           <button className="button-share">
             <img src={share} alt="share" /> Share
           </button>
@@ -55,6 +68,7 @@ const CardQA = props => {
           />
         </div>
       ) : null}
+      <Link to={`/card/QA/${props.item.id}`} >View All</Link>
     </DIV>
   );
 };
@@ -67,6 +81,7 @@ const DIV = styled.div`
   box-shadow: 4px 4px 0 0 #ff719b;
   width: 316px;
   margin-bottom: 26px;
+  overflow: hidden;
 
   .note-data {
     color: #ff719b;
@@ -177,6 +192,10 @@ const DIV = styled.div`
     text-indent: 1.5em;
     text-align: justify;
     font-size: 12px;
+  }
+  .preview_video {
+    width: auto !important;
+    height: auto !important;
   }
 `;
 

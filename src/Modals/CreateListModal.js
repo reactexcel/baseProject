@@ -68,6 +68,8 @@ const CreateListModal = props => {
                 <form onSubmit={handleSubmit}>
                   <label>Title</label>
                   <input type="text" name="title" onChange={handleChange} />
+                  <label>URL</label>
+                  <input type="text" name="url" onChange={handleChange} />
                   <div className="enterLineHolder">
                     <TextArea
                       className="col-12 col-md-12 col-sm-12 col-xs-12"

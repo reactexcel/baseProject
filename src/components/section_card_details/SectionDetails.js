@@ -278,6 +278,7 @@ const SectionDetails = props => {
     const questionData = {
       section_id: props.item.id,
       question: data.question,
+      url: data.url,
       x: 0,
       y: 0,
       h: 1,

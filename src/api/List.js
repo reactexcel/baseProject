@@ -4,8 +4,11 @@ export const getList = () => {
 	return axiosInstance.get("api/lists").then(res => res.data);
 };
 
+export const getListById = id => {
+	return axiosInstance.get(`api/lists/${id}?api_token=${localStorage.getItem("api_token")}`).then(res => res.data);
+};
+
 export const postList = data => {
-	console.log("data", data)
 	return axiosInstance.post(`api/lists?api_token=${localStorage.getItem("api_token")}`, data).then(res => res.data);
 };
 

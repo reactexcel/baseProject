@@ -31,6 +31,65 @@ export const getPosts = () => dispatch => {
   });
 };
 
+export const getCardById = ({type, id}) => dispatch => {
+  switch(type) {
+    case "notes":
+      return notesApi
+        .getNoteById(id)
+        .then(dispatch({ type: types.GET_CARD_BY_ID_START }))
+        .then(response => {
+          dispatch({
+            type: types.GET_CARD_BY_ID_SUCCESS,
+            payload: response
+          });
+        })
+        .catch(error => {
+          dispatch({
+            type: types.GET_CARD_BY_ID_ERROR,
+            payload: error.response
+          });
+        });
+    case "QA":
+      return questionsApi
+        .getQAById(id)
+        .then(dispatch({ type: types.GET_CARD_BY_ID_START }))
+        .then(response => {
+          console.log(response);
+          
+          dispatch({
+            type: types.GET_CARD_BY_ID_SUCCESS,
+            payload: response
+          });
+        })
+        .catch(error => {
+          dispatch({
+            type: types.GET_CARD_BY_ID_ERROR,
+            payload: error.response
+          });
+        });
+    case "list":
+      return listApi
+        .getListById(id)
+        .then(dispatch({ type: types.GET_CARD_BY_ID_START }))
+        .then(response => {
+          dispatch({
+            type: types.GET_CARD_BY_ID_SUCCESS,
+            payload: response
+          });
+        })
+        .catch(error => {
+          dispatch({
+            type: types.GET_CARD_BY_ID_ERROR,
+            payload: error.response
+          });
+        });
+    default:
+      return null;
+};
+
+}
+
+
 // export const getSection = post => dispatch => {
 // 	return sectionApi.getSections(post.id).then(res => {
 // 		return Promise.all(res.map(section => dispatch(getNotes(section)))).then(
