@@ -11,7 +11,7 @@ export const getNotes = id => {
 export const getNoteById = id => {
   return axiosInstance
     .get(
-      `api//notes/${id}?api_token=${localStorage.getItem("api_token")}`
+      `api/notes/${id}?api_token=${localStorage.getItem("api_token")}`
     )
     .then(res => res.data);
 };

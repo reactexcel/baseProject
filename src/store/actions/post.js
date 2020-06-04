@@ -33,7 +33,7 @@ export const getPosts = () => dispatch => {
 
 export const getCardById = ({type, id}) => dispatch => {
   switch(type) {
-    case "notes":
+    case "note":
       return notesApi
         .getNoteById(id)
         .then(dispatch({ type: types.GET_CARD_BY_ID_START }))
